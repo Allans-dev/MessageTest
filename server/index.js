@@ -31,7 +31,8 @@ router(app);
 
 // Socket io hello world message code
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  // res.sendFile(__dirname + '/../client/src/index.js');
+  res.sendFile(__dirname + '/../client/index.html');
 });
 
 io.on('connection', function(socket){
