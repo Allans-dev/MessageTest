@@ -25,7 +25,7 @@ userSchema.pre('save', function(next) {
             // overwrite plain text password with encrypted password
             user.password = hash;
             next();
-        })
+        }) 
     })
 })
 
