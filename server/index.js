@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const router = require('./router');
-const socketEvents = require('./socket-events');
 
 // DB setup
 mongoose.connect('mongodb://localhost:27017/serverAuth');
@@ -28,8 +27,23 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
+
+  // check for connection
   console.log('a user connected');
+  socket.on('disconnect', function(){
+      console.log('user disconnected');
+  });
+  // message to console log
+  socket.on('chat message', function(msg){
+      console.log('message: ' + msg);
+  });
+  // message sent to everyone including sender
+  socket.on('chat message', function(msg){
+      io.emit('chat message', msg);
+  });
 });
+
+io.emit('some event', { for: 'everyone' });
 
 http.listen(3090, function(){
   console.log('listening on *:3090');
