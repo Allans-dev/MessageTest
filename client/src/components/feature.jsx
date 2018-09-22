@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import messageDisplay from './messageDisplay';
+import MessageDisplay from './messageDisplay';
 
 class Feature extends Component {
     componentWillMount() {
@@ -11,8 +11,8 @@ class Feature extends Component {
     render() {
         return (
             <div>
-                {this.props.message}
-                {messageDisplay}    
+                <div>{this.props.message}</div>
+                <MessageDisplay />  
             </div>
         );
     }
