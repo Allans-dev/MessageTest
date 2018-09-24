@@ -4,6 +4,8 @@ import * as actions from '../actions';
 
 // import MessageDisplay from './messageDisplay';
 
+import io from 'socket.io-client';
+
 class Feature extends Component {
     constructor(props){
         super(props);
@@ -16,39 +18,52 @@ class Feature extends Component {
         this.props.fetchMessage();
     }
 
+    componentDidMount() {
+    }
+
     handleChange(event) {
         this.setState({message: event.target.value});
       }
     
-      handleSubmit(event) {
+    handleSubmit(event) {
+
+        const socket = io();
+
+        socket.emit('chat message', this.state.message);
+        
+        this.setState({message: ''});
+        // return false
+        //      socket.on('chat message', function(msg){
+        //          $('#messages').append($('<li>').text(msg));
+        //      });
+
+        // convert jquery to react
+        // onSubmit use socket.io to pop to another area of the page on all users
+        
+        // $(function () {
+        //     const socket = io();
+        //      $('form').submit(function(){
+        //          socket.emit('chat message', $('#m').val());
+        //          $('#m').val('');
+        //          return false;
+        //      });
+        //      socket.on('chat message', function(msg){
+        //          $('#messages').append($('<li>').text(msg));
+        //      });
+        //  });
+
         event.preventDefault();
-
-            // convert jquery to react
-            // onSubmit use socket.io to pop to another area of the page on all users
-            
-            // $(function () {
-            //     const socket = io();
-            //      $('form').submit(function(){
-            //          socket.emit('chat message', $('#m').val());
-            //          $('#m').val('');
-            //          return false;
-            //      });
-            //      socket.on('chat message', function(msg){
-            //          $('#messages').append($('<li>').text(msg));
-            //      });
-            //  });
-
-      }
+    }
 
     render() {
         return (
             <div>
                 <div>{this.props.message}</div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <label>
-                        <input type="text" name="message" value={this.state.message} onChange={this.handleChange} />
+                        <input type="text" name="chat message" value={this.state.message} onChange={this.handleChange} />
                     </label>
-                    <input type="submit" value="submit" onSubmit={this.handleSubmit} />
+                    <input type="submit" value="submit" />
                 </form> 
             </div>
         );
