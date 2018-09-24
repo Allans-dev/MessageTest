@@ -1,6 +1,7 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const socketEvents = require('./socket-events');
 
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -29,3 +30,5 @@ app.get('/', function(req, res){
 http.listen(3090, function(){
   console.log('listening on *:3090');
 });
+
+socketEvents(io);
