@@ -5,6 +5,7 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
+// const socketEvents = require('./socket-events');
 
 module.exports = function(app) {
 
@@ -13,4 +14,11 @@ module.exports = function(app) {
     });
     app.post('/signin',requireSignin, Authentication.signin);
     app.post('/signup', Authentication.signup);
+
+
+    // work in progress
+    app.post('/feature', requireAuth, function(req, res) {
+        console.log(req);
+        
+    });
 }
