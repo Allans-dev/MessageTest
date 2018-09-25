@@ -6,6 +6,49 @@ import * as actions from '../actions';
 
 import io from 'socket.io-client';
 
+// Styling
+
+const formStyle = {
+    background: '#000',
+    padding: '3px',
+    position: 'fixed',
+    bottom: '0',
+    width: '100%'
+}
+
+const inputStyle = {
+    border: '0',
+    padding: '10px',
+    width: '90%', 
+    marginRight: '.5%'
+}
+
+const submitStyle = {
+    width: '9%',
+    background: 'rgb(130, 224, 255)',
+    border: 'none',
+    padding: '10px'
+}
+
+const messagesStyle = {
+    listStyleType: 'none', 
+    margin: '0',
+    padding: '0',
+    "& li" : {
+        padding: '5px 10px'
+    },
+    "& li:nthChild(odd)" : {
+        background: '#eee'
+    }
+}
+
+{/* <style>
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+</style> */}
+
+// Component
+
 class Feature extends Component {
     constructor(props){
         super(props);
@@ -13,12 +56,14 @@ class Feature extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.socket = io();
     }
     componentWillMount() {
         this.props.fetchMessage();
-    }
-
-    componentDidMount() {
+        this.socket.on('chat message', function(msg){
+            $('#messages').append($('<li>').text(msg));
+        });
     }
 
     handleChange(event) {
@@ -27,17 +72,18 @@ class Feature extends Component {
     
     handleSubmit(event) {
 
-        const socket = io();
-
-        socket.emit('chat message', this.state.message);
+        console.log(this.socket);
         
-        this.setState({message: ''});
-        // return false
-        //      socket.on('chat message', function(msg){
-        //          $('#messages').append($('<li>').text(msg));
-        //      });
 
-        // convert jquery to react
+        this.socket.emit('chat message', this.state.message, (confirmation)=>{
+            console.log(confirmation);
+        })
+        this.setState({ message: '' });
+        console.log('handleSubmit is working');
+        
+        event.preventDefault();
+
+        // convert jquery to react ?not necessary?
         // onSubmit use socket.io to pop to another area of the page on all users
         
         // $(function () {
@@ -51,19 +97,25 @@ class Feature extends Component {
         //          $('#messages').append($('<li>').text(msg));
         //      });
         //  });
-
-        event.preventDefault();
+        
     }
 
     render() {
         return (
             <div>
                 <div>{this.props.message}</div>
-                <form onSubmit={this.handleSubmit}>
+                <ul id="messages" style={messagesStyle}></ul>
+                <form onSubmit={this.handleSubmit} style={formStyle}>
                     <label>
-                        <input type="text" name="chat message" value={this.state.message} onChange={this.handleChange} />
+                        <input type="text" 
+                        name="chat message" 
+                        id="m" 
+                        value={this.state.message} 
+                        onChange={this.handleChange} 
+                        autoComplete="off"
+                        style={inputStyle} />
                     </label>
-                    <input type="submit" value="submit" />
+                    <input type="submit" value="submit" style={submitStyle} />
                 </form> 
             </div>
         );
