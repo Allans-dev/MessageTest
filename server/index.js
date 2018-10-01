@@ -1,6 +1,6 @@
 const app = require('express')();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+// const http = require('http').Server(app);
+const io = require('socket.io')();
 const socketEvents = require('./socket-events');
 
 const bodyParser = require('body-parser');
@@ -27,8 +27,20 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/../client/index.html');
 });
 
-http.listen(3090, function(){
-  console.log('listening on *:3090');
+// http.listen(3090, function(){
+//   console.log('listening on *:3090');
+// });
+
+io.on('connection', (client) => {
+  client.on('subscribeToTimer', (interval) => {
+    console.log('client is subscribing to timer with interval ', interval);
+    setInterval(() => {
+      client.emit('timer', new Date());
+    }, interval);
+  });
 });
 
-socketEvents(io);
+const port = 8000;
+
+io.listen(port);
+console.log('listening on port ', port);

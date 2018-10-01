@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 // import MessageDisplay from './messageDisplay';
+import { subscribeToTimer } from '../api';
 
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 // Styling
 
@@ -42,28 +43,32 @@ const messagesStyle = {
     }
 }
 
-{/* <style>
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-</style> */}
+// const socket = io();
 
 // Component
 
 class Feature extends Component {
     constructor(props){
         super(props);
-        this.state = { message: '' }
+        // this.state = { message: '' }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        this.socket = io();
+        subscribeToTimer((err, timestamp) => this.setState({ 
+            timestamp 
+          }));
+
+        this.state = {
+            message: '',
+            timestamp: 'no timestamp yet'
+        };
     }
     componentWillMount() {
         this.props.fetchMessage();
-        this.socket.on('chat message', function(msg){
-            $('#messages').append($('<li>').text(msg));
-        });
+        // this.socket.on('chat message', function(msg){
+        //     $('#messages').append($('<li>').text(msg));
+        // });
     }
 
     handleChange(event) {
@@ -72,16 +77,15 @@ class Feature extends Component {
     
     handleSubmit(event) {
 
-        console.log(this.socket);
+        // this.socket.emit('chat message', this.state.message, (confirmation)=>{
+        //     console.log(confirmation);
+        // })
+        // this.setState({ message: '' });
+        // console.log('handleSubmit is working');
         
+        // console.log(this.socket);
 
-        this.socket.emit('chat message', this.state.message, (confirmation)=>{
-            console.log(confirmation);
-        })
-        this.setState({ message: '' });
-        console.log('handleSubmit is working');
-        
-        event.preventDefault();
+        // event.preventDefault();
 
         // convert jquery to react ?not necessary?
         // onSubmit use socket.io to pop to another area of the page on all users
@@ -103,7 +107,10 @@ class Feature extends Component {
     render() {
         return (
             <div>
-                <div>{this.props.message}</div>
+                <div>
+                    {this.state.message}
+                    {this.state.timestamp}
+                </div>
                 <ul id="messages" style={messagesStyle}></ul>
                 <form onSubmit={this.handleSubmit} style={formStyle}>
                     <label>

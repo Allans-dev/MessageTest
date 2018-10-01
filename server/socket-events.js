@@ -6,6 +6,7 @@ module.exports = (io) => {
 
         // check for connection
         console.log('a user connected');
+
         socket.on('disconnect', function(){
             console.log('user disconnected');
         });
@@ -19,6 +20,12 @@ module.exports = (io) => {
         });
     });
 
-  io.emit('some event', { for: 'everyone' });
+//   io.emit('some event', { for: 'everyone' });
 
+//   io.on('chat message', function(msg){
+//     console.log(msg);
+//     io.emit('chat message', msg);
+// });
 }
+
+
