@@ -22,18 +22,16 @@ app.use(bodyParser.json({ type: '*/*' })); // all requests converted to json for
 router(app);
 
 // Socket io hello world message code
-app.get('/', function(req, res){
-  // res.sendFile(__dirname + '/../client/src/components/messageDisplay.js');
-  res.sendFile(__dirname + '/../client/index.html');
-});
+// app.get('/', function(req, res){
+//   // res.sendFile(__dirname + '/../client/src/components/messageDisplay.js');
+//   res.sendFile(__dirname + '/../client/index.html');
+// });
 
 // http.listen(3090, function(){
 //   console.log('listening on *:3090');
 // });
 
-socketEvents(io);
-
 const port = 3090;
 
+socketEvents(io);
 io.listen(port);
-console.log('listening on port ', port);

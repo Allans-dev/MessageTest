@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 // import MessageDisplay from './messageDisplay';
-import { subscribeToTimer } from '../api';
 
-// import io from 'socket.io-client';
+import { subscribeToTimer } from '../api';
 
 // Styling
 
@@ -42,8 +41,6 @@ const messagesStyle = {
         background: '#eee'
     }
 }
-
-// const socket = io();
 
 // Component
 
