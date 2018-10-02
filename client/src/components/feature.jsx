@@ -55,10 +55,6 @@ class Feature extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        subscribeToTimer((err, timestamp) => this.setState({ 
-            timestamp 
-          }));
-
         this.state = {
             message: '',
             timestamp: 'no timestamp yet'
@@ -66,6 +62,11 @@ class Feature extends Component {
     }
     componentWillMount() {
         this.props.fetchMessage();
+
+        subscribeToTimer((err, timestamp) => this.setState({ 
+            timestamp 
+          }));
+
         // this.socket.on('chat message', function(msg){
         //     $('#messages').append($('<li>').text(msg));
         // });

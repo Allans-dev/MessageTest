@@ -31,16 +31,9 @@ app.get('/', function(req, res){
 //   console.log('listening on *:3090');
 // });
 
-io.on('connection', (client) => {
-  client.on('subscribeToTimer', (interval) => {
-    console.log('client is subscribing to timer with interval ', interval);
-    setInterval(() => {
-      client.emit('timer', new Date());
-    }, interval);
-  });
-});
+socketEvents(io);
 
-const port = 8000;
+const port = 3090;
 
 io.listen(port);
 console.log('listening on port ', port);
