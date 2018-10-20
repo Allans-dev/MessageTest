@@ -15,10 +15,9 @@ module.exports = function(app) {
     app.post('/signin',requireSignin, Authentication.signin);
     app.post('/signup', Authentication.signup);
 
-
     // work in progress
-    app.post('/feature', requireAuth, function(req, res) {
-        console.log(req);
+    // app.post('/feature', requireAuth, function(req, res) {
+    //     console.log(req);
         
-    });
+    // });
 }

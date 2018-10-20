@@ -1,6 +1,6 @@
 const app = require('express')();
-// const http = require('http').Server(app);
-const io = require('socket.io')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const socketEvents = require('./socket-events');
 
 const bodyParser = require('body-parser');
@@ -11,8 +11,16 @@ const cors = require('cors');
 const router = require('./router');
 
 // DB setup
-mongoose.connect('mongodb://localhost:27017/serverAuth');
-// P.N move to mlabs
+const dbUrl = 'mongodb://localhost:27017/messageTest'
+mongoose.connect(dbUrl, (err)=>{
+    console.log(err);
+});
+// Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise;
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // App Setup
 // .use uses middleware 
@@ -31,7 +39,7 @@ router(app);
 //   console.log('listening on *:3090');
 // });
 
-const port = 3090;
+const port = process.env.PORT || 3090;
 
 socketEvents(io);
 io.listen(port);
