@@ -64,6 +64,8 @@ class Welcome extends Component {
     }
     componentWillMount() {
 
+        messageDisplay(this.state.message);
+
         subscribeToTimer((err, timestamp) => this.setState({ 
             timestamp 
           }));
@@ -104,7 +106,7 @@ class Welcome extends Component {
                     {this.state.message}
                     {this.state.timestamp}
                 </div>
-                <ul id="messages" style={messagesStyle}>{messageDisplay}</ul>
+                <ul id="messages" style={messagesStyle}></ul>
                 <form onSubmit={this.handleSubmit} style={formStyle}>
                     <label>
                         <input type="text" 
