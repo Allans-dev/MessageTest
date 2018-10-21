@@ -18,11 +18,8 @@ module.exports = (io) => {
       });
 
       client.on('chat message', function(msg){
-          console.log('message: ' + msg);
-      });
-
-      client.on('chat message', function(msg){
           client.emit('chat message', msg);
+          console.log('message: ' + msg);
       });
 
     });
