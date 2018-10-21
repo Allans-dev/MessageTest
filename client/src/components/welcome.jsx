@@ -6,9 +6,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-// import MessageDisplay from './messageDisplay';
-
 import { subscribeToTimer } from '../api';
+import { messageRelay } from '../api';
+import { messageDisplay } from '../api';
 
 // Styling
 
@@ -35,6 +35,7 @@ const submitStyle = {
 }
 
 const messagesStyle = {
+    backgroundColor: 'green',
     listStyleType: 'none', 
     margin: '0',
     padding: '0',
@@ -62,15 +63,10 @@ class Welcome extends Component {
         };
     }
     componentWillMount() {
-        this.props.fetchMessage();
 
         subscribeToTimer((err, timestamp) => this.setState({ 
             timestamp 
           }));
-
-        // this.socket.on('chat message', function(msg){
-        //     $('#messages').append($('<li>').text(msg));
-        // });
     }
 
     handleChange(event) {
@@ -79,13 +75,8 @@ class Welcome extends Component {
     
     handleSubmit(event) {
 
-        this.socket.emit('chat message', this.state.message, (confirmation)=>{
-            console.log(confirmation);
-        })
+        messageRelay(this.state.message);
         this.setState({ message: '' });
-        console.log('handleSubmit is working');
-        
-        console.log(this.socket);
 
         event.preventDefault();
 
@@ -113,7 +104,7 @@ class Welcome extends Component {
                     {this.state.message}
                     {this.state.timestamp}
                 </div>
-                <ul id="messages" style={messagesStyle}></ul>
+                <ul id="messages" style={messagesStyle}>{messageDisplay}</ul>
                 <form onSubmit={this.handleSubmit} style={formStyle}>
                     <label>
                         <input type="text" 
