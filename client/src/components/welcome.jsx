@@ -35,16 +35,9 @@ const submitStyle = {
 }
 
 const messagesStyle = {
-    backgroundColor: 'green',
     listStyleType: 'none', 
     margin: '0',
     padding: '0',
-    "& li" : {
-        padding: '5px 10px'
-    },
-    "& li:nthChild(odd)" : {
-        background: '#eee'
-    }
 }
 
 // Component
@@ -103,7 +96,6 @@ class Welcome extends Component {
         return (
             <div>
                 <div>
-                    {this.state.message}
                     {this.state.timestamp}
                 </div>
                 <ul id="messages" style={messagesStyle}></ul>
