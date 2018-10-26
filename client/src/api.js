@@ -1,8 +1,5 @@
 import openSocket from 'socket.io-client';
-const socket = openSocket("http://localhost:4000");
-
-// var allowedOrigins = "domain_1:* domain_2:*";
-//  io(server,{origins:allowedOrigins}); 
+const socket = openSocket("http://localhost:3090");
 
 function subscribeToTimer(cb) {
     socket.on('connection', console.log(timestamp => cb(null, timestamp)));

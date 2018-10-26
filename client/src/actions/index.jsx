@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { 
     AUTH_USER,
@@ -20,7 +19,7 @@ export function signinUser({ email, password }) {
         console.log(`action called with: ${ email }, ${ password }`);
 
         // submit email/password to server
-        axios.post(`${ROOT_URL}/signin`, { email, password })
+        postData(`${ROOT_URL}/signin`, { email, password })
             .then(response => {
                 // If request is good...
                 //  - update state to indicate user is auth'ed
@@ -41,7 +40,7 @@ export function signinUser({ email, password }) {
 
 export function signupUser({ email, password }) {
     return function(dispatch) {
-        axios.post(`${ROOT_URL}/signup`, { email, password })
+        postData(`${ROOT_URL}/signup`, { email, password })
         .then(response => {
             dispatch({ type: AUTH_USER });
             localStorage.setItem('token', response.data.token);
@@ -52,27 +51,25 @@ export function signupUser({ email, password }) {
     };
 }
 
-// postData(`http://example.com/answer`, {answer: 42})
-//   .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
-//   .catch(error => console.error(error));
 
-// function postData(url = ``, data = {}) {
-//   // Default options are marked with *
-//     return fetch(url, {
-//         method: "POST", // *GET, POST, PUT, DELETE, etc.
-//         mode: "cors", // no-cors, cors, *same-origin
-//         cache: "default", // *default, no-cache, reload, force-cache, only-if-cached
-//         credentials: "include", // include, same-origin, *omit
-//         headers: {
-//             "Content-Type": "application/json; charset=utf-8",
-//             // "Content-Type": "application/x-www-form-urlencoded",
-//         },
-//         redirect: "follow", // manual, *follow, error
-//         referrer: "no-referrer", // no-referrer, *client
-//         body: JSON.stringify(data), // body data type must match "Content-Type" header
-//     })
-//     .then(response => response.json()); // parses response to JSON
-// }
+function postData(url = ``, data = {}) {
+  // Default options are marked with *
+    return fetch(url, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "no-cors", // no-cors, cors, *same-origin
+        cache: "default", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "include", // include, same-origin, *omit
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Access-Control-Allow-Origin": "*"
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        redirect: "follow", // manual, *follow, error
+        referrer: "no-referrer", // no-referrer, *client
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+    })
+    .then(response => response.json()); // parses response to JSON
+}
 
 
 export function authError(error) {
@@ -100,19 +97,3 @@ export function fetchMessage() {
             });
     };
 }
-
-// redux promise
-// export function fetchMessage() {
-//     const request = axios.get(ROOT_URL, {
-//         headers: { authorization: localStorage.getItem('token')}
-//     });
-
-//     return {
-//         type: FETCH_MESSAGE,
-//         payload: request
-//     };
-// } 
-
-
-
-

@@ -1,6 +1,9 @@
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+
+const allowedOrigins = "http://localhost:*";
+
+const io = require('socket.io')(http,{origins:allowedOrigins});
 const socketEvents = require('./socket-events');
 
 const bodyParser = require('body-parser');
@@ -12,9 +15,7 @@ const router = require('./router');
 
 // DB setup
 const dbUrl = 'mongodb://localhost:27017/messageTest'
-mongoose.connect(dbUrl, (err)=>{
-    console.log(err);
-});
+mongoose.connect(dbUrl);
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
 //Get the default connection
@@ -26,7 +27,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // .use uses middleware 
 app.use(morgan('combined')); // logging used for debugging
 app.use(cors()); // allows all client browsers to ajax server
-// {origin: '*'}
 app.use(bodyParser.json({ type: '*/*' })); // all requests converted to json for server
 router(app);
 
@@ -38,14 +38,12 @@ router(app);
 
 const port = process.env.PORT || 3090;
 
-http.listen(port, function(){
-  console.log('listening on *:3090');
-});
-
-const socketPort = 4000;
+// http.listen(port, function(){
+//   console.log('listening on *:3090');
+// });
 
 socketEvents(io);
-io.listen(socketPort);
+io.listen(port);
 
-console.log(`listening on ${socketPort}`);
+console.log(`listening on: ${port}`);
 

@@ -16,7 +16,7 @@ exports.signin = function(req, res, next) {
 
 
 exports.signup = function(req, res, next) {
-        res.send({ success: 'true' }); 
+        // res.send({ success: 'true' }); 
         console.log('server signup function called');
 
         const email = req.body.email;

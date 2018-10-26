@@ -13,7 +13,7 @@ module.exports = function(app) {
         // res.send( { message: 'super secret code is 123abc' });
     });
     app.post('/signin',requireSignin, Authentication.signin);
-    app.post('/signup', Authentication.signup);
+    app.post('/signup', Authentication.signup, ()=>"signup reached router");
 
     // work in progress
     // app.post('/feature', requireAuth, function(req, res) {
