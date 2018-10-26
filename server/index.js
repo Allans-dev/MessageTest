@@ -26,6 +26,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // .use uses middleware 
 app.use(morgan('combined')); // logging used for debugging
 app.use(cors()); // allows all client browsers to ajax server
+// {origin: '*'}
 app.use(bodyParser.json({ type: '*/*' })); // all requests converted to json for server
 router(app);
 
@@ -35,11 +36,16 @@ router(app);
 //   res.sendFile(__dirname + '/../client/index.html');
 // });
 
-// http.listen(3090, function(){
-//   console.log('listening on *:3090');
-// });
-
 const port = process.env.PORT || 3090;
 
+http.listen(port, function(){
+  console.log('listening on *:3090');
+});
+
+const socketPort = 4000;
+
 socketEvents(io);
-io.listen(port);
+io.listen(socketPort);
+
+console.log(`listening on ${socketPort}`);
+

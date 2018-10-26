@@ -9,6 +9,7 @@ import * as actions from '../actions';
 import { subscribeToTimer } from '../api';
 import { messageRelay } from '../api';
 import { messageDisplay } from '../api';
+import { closeSocket } from '../api';
 
 // Styling
 
@@ -17,7 +18,7 @@ const formStyle = {
     padding: '3px',
     position: 'fixed',
     bottom: '0',
-    width: '100%'
+    width: '75%'
 }
 
 const inputStyle = {
@@ -56,12 +57,11 @@ class Welcome extends Component {
         };
     }
     componentWillMount() {
-
         messageDisplay(this.state.message);
 
-        subscribeToTimer((err, timestamp) => this.setState({ 
-            timestamp 
-          }));
+        // subscribeToTimer((err, timestamp) => this.setState({ 
+        //     timestamp 
+        //   }));
     }
 
     handleChange(event) {
@@ -92,23 +92,27 @@ class Welcome extends Component {
         
     }
 
+    componentWillUnmount() {
+        closeSocket();
+    }
+
     render() {
         return (
             <div>
-                <div>
+                {/* <div>
                     {this.state.timestamp}
-                </div>
+                </div> */}
                 <ul id="messages" style={messagesStyle}></ul>
                 <form onSubmit={this.handleSubmit} style={formStyle}>
-                    <label>
-                        <input type="text" 
+                    <input 
+                        type="text" 
                         name="chat message" 
                         id="m" 
                         value={this.state.message} 
                         onChange={this.handleChange} 
                         autoComplete="off"
-                        style={inputStyle} />
-                    </label>
+                        style={inputStyle} 
+                    />
                     <input type="submit" value="submit" style={submitStyle} />
                 </form> 
             </div>

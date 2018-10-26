@@ -18,7 +18,7 @@ class Signup extends Component {
     handleFormSubmit(formProps) {
         // call action creator to signup up user
         this.props.signupUser(formProps);
-        console.log('action called');
+        console.log('signup form submit action');
     }
 
     renderAlert() {

@@ -22,6 +22,10 @@ module.exports = (io) => {
           console.log('message: ' + msg);
       });
 
+      client.on('end', function (){
+        client.disconnect(0);
+       });
+
     });
 
 }

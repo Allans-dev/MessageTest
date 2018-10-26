@@ -1,134 +1,127 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
+import React from 'react';
 
-// import MessageDisplay from './messageDisplay';
+export default (props) => <div> welcome to the protected page</div>;
 
-import { subscribeToTimer } from '../api';
+// import React, { Component } from 'react';
+// import { connect } from 'react-redux';
+// import * as actions from '../actions';
 
-// Styling
+// import { subscribeToTimer } from '../api';
+// import { messageRelay } from '../api';
+// import { messageDisplay } from '../api';
+// import { closeSocket } from '../api';
 
-const formStyle = {
-    background: '#000',
-    padding: '3px',
-    position: 'fixed',
-    bottom: '0',
-    width: '100%'
-}
+// // Styling
 
-const inputStyle = {
-    border: '0',
-    padding: '10px',
-    width: '90%', 
-    marginRight: '.5%'
-}
+// const formStyle = {
+//     background: '#000',
+//     padding: '3px',
+//     position: 'fixed',
+//     bottom: '0',
+//     width: '75%'
+// }
 
-const submitStyle = {
-    width: '9%',
-    background: 'rgb(130, 224, 255)',
-    border: 'none',
-    padding: '10px'
-}
+// const inputStyle = {
+//     border: '0',
+//     padding: '10px',
+//     width: '90%', 
+//     marginRight: '.5%'
+// }
 
-const messagesStyle = {
-    listStyleType: 'none', 
-    margin: '0',
-    padding: '0',
-    "& li" : {
-        padding: '5px 10px'
-    },
-    "& li:nthChild(odd)" : {
-        background: '#eee'
-    }
-}
+// const submitStyle = {
+//     width: '9%',
+//     background: 'rgb(130, 224, 255)',
+//     border: 'none',
+//     padding: '10px'
+// }
 
-// Component
+// const messagesStyle = {
+//     listStyleType: 'none', 
+//     margin: '0',
+//     padding: '0',
+// }
 
-class Feature extends Component {
-    constructor(props){
-        super(props);
-        // this.state = { message: '' }
+// // Component
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+// class Feature extends Component {
+//     constructor(props){
+//         super(props);
+//         // this.state = { message: '' }
 
-        this.state = {
-            message: '',
-            timestamp: 'no timestamp yet'
-        };
-    }
-    componentWillMount() {
-        this.props.fetchMessage();
+//         this.handleChange = this.handleChange.bind(this);
+//         this.handleSubmit = this.handleSubmit.bind(this);
 
-        subscribeToTimer((err, timestamp) => this.setState({ 
-            timestamp 
-          }));
+//         this.state = {
+//             message: '',
+//             timestamp: 'no timestamp yet'
+//         };
+//     }
+//     componentWillMount() {
+//         messageDisplay(this.state.message);
 
-        // this.socket.on('chat message', function(msg){
-        //     $('#messages').append($('<li>').text(msg));
-        // });
-    }
+//         // subscribeToTimer((err, timestamp) => this.setState({ 
+//         //     timestamp 
+//         //   }));
+//     }
 
-    handleChange(event) {
-        this.setState({message: event.target.value});
-      }
+//     handleChange(event) {
+//         this.setState({message: event.target.value});
+//       }
     
-    handleSubmit(event) {
+//     handleSubmit(event) {
 
-        // this.socket.emit('chat message', this.state.message, (confirmation)=>{
-        //     console.log(confirmation);
-        // })
-        // this.setState({ message: '' });
-        // console.log('handleSubmit is working');
+//         messageRelay(this.state.message);
+//         this.setState({ message: '' });
+
+//         event.preventDefault();
+
+//         // convert jquery to react ?not necessary?
+//         // onSubmit use socket.io to pop to another area of the page on all users
         
-        // console.log(this.socket);
-
-        // event.preventDefault();
-
-        // convert jquery to react ?not necessary?
-        // onSubmit use socket.io to pop to another area of the page on all users
+//         // $(function () {
+//         //     const socket = io();
+//         //      $('form').submit(function(){
+//         //          socket.emit('chat message', $('#m').val());
+//         //          $('#m').val('');
+//         //          return false;
+//         //      });
+//         //      socket.on('chat message', function(msg){
+//         //          $('#messages').append($('<li>').text(msg));
+//         //      });
+//         //  });
         
-        // $(function () {
-        //     const socket = io();
-        //      $('form').submit(function(){
-        //          socket.emit('chat message', $('#m').val());
-        //          $('#m').val('');
-        //          return false;
-        //      });
-        //      socket.on('chat message', function(msg){
-        //          $('#messages').append($('<li>').text(msg));
-        //      });
-        //  });
-        
-    }
+//     }
 
-    render() {
-        return (
-            <div>
-                <div>
-                    {this.state.message}
-                    {this.state.timestamp}
-                </div>
-                <ul id="messages" style={messagesStyle}></ul>
-                <form onSubmit={this.handleSubmit} style={formStyle}>
-                    <label>
-                        <input type="text" 
-                        name="chat message" 
-                        id="m" 
-                        value={this.state.message} 
-                        onChange={this.handleChange} 
-                        autoComplete="off"
-                        style={inputStyle} />
-                    </label>
-                    <input type="submit" value="submit" style={submitStyle} />
-                </form> 
-            </div>
-        );
-    }
-}
+//     componentWillUnmount() {
+//         closeSocket();
+//     }
 
-function mapStateToProps(state) {
-    return { message: state.auth.message };
-}
+//     render() {
+//         return (
+//             <div>
+//                 {/* <div>
+//                     {this.state.timestamp}
+//                 </div> */}
+//                 <ul id="messages" style={messagesStyle}></ul>
+//                 <form onSubmit={this.handleSubmit} style={formStyle}>
+//                     <input 
+//                         type="text" 
+//                         name="chat message" 
+//                         id="m" 
+//                         value={this.state.message} 
+//                         onChange={this.handleChange} 
+//                         autoComplete="off"
+//                         style={inputStyle} 
+//                     />
+//                     <input type="submit" value="submit" style={submitStyle} />
+//                 </form> 
+//             </div>
+//         );
+//     }
+// }
 
-export default connect(mapStateToProps, actions)(Feature);
+// function mapStateToProps(state) {
+//     return { message: state.auth.message };
+// }
+
+// export default connect(mapStateToProps, actions)(Feature);

@@ -1,5 +1,5 @@
 import openSocket from 'socket.io-client';
-const socket = openSocket("http://localhost:3090");
+const socket = openSocket("http://localhost:4000");
 
 // var allowedOrigins = "domain_1:* domain_2:*";
 //  io(server,{origins:allowedOrigins}); 
@@ -36,3 +36,8 @@ function messageDisplay(msg) {
 
 export { messageDisplay };
 
+function closeSocket() {
+    socket.emit('end');
+}
+
+export { closeSocket };
