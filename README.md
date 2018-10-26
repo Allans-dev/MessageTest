@@ -5,4 +5,3 @@ New Technologies
 - socket.io
 - ReactJS Authentication with JWT
 - NodeJS Authentication with passport-jwt & passport-local
-- Mocha Testing
