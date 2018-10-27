@@ -35,15 +35,11 @@ router(app);
 //   // res.sendFile(__dirname + '/../client/src/components/messageDisplay.js');
 //   res.sendFile(__dirname + '/../client/index.html');
 // });
-
 const port = process.env.PORT || 3090;
 
-// http.listen(port, function(){
-//   console.log('listening on *:3090');
-// });
+http.listen(port, "127.0.0.1"); // port then ip addresss
 
 socketEvents(io);
-io.listen(port);
 
 console.log(`listening on: ${port}`);
 

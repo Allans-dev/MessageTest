@@ -19,7 +19,7 @@ export function signinUser({ email, password }) {
         console.log(`action called with: ${ email }, ${ password }`);
 
         // submit email/password to server
-        postData(`${ROOT_URL}/signin`, { email, password })
+        postData(`${ROOT_URL}/signin`,{ email, password })
             .then(response => {
                 // If request is good...
                 //  - update state to indicate user is auth'ed
@@ -45,7 +45,9 @@ export function signupUser({ email, password }) {
             dispatch({ type: AUTH_USER });
             localStorage.setItem('token', response.data.token);
             browserHistory.push('/feature');
+            console.log("token set");
         })
+        // .catch(({ response }) => console.log(response));
         .catch(({ response }) => dispatch(authError(response.data.error)));
         console.log("signup user action called");
     };
@@ -56,9 +58,7 @@ function postData(url = ``, data = {}) {
   // Default options are marked with *
     return fetch(url, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "no-cors", // no-cors, cors, *same-origin
-        cache: "default", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "include", // include, same-origin, *omit
+        mode: "cors", // no-cors, cors, *same-origin
         headers: {
             "Content-Type": "application/json; charset=utf-8",
             "Access-Control-Allow-Origin": "*"
