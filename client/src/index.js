@@ -21,7 +21,7 @@ const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
   // store is created before any rendering
 
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
   // if we have a token sign user in
 if (token) {
   // need to update application state

@@ -16,7 +16,7 @@ export function signinUser({ email, password }) {
         // eg. dispatch({ type: 'login', payload: 'etc' });
         // can dispatch more than one action in action creator
 
-        console.log(`action called with: ${ email }, ${ password }`);
+        console.log(`signinUser action called`);
 
         // submit email/password to server
         postData(`${ROOT_URL}/signin`,{ email, password })
@@ -25,7 +25,7 @@ export function signinUser({ email, password }) {
                 //  - update state to indicate user is auth'ed
                 dispatch({ type: AUTH_USER });
                 //  - save the JWT token
-                localStorage.setItem('token', response.data.token);
+                sessionStorage.setItem('token', response.data.token);
                 //  - redirect to the route '/feature'
                 browserHistory.push('/feature');
             })
@@ -43,9 +43,9 @@ export function signupUser({ email, password }) {
         postData(`${ROOT_URL}/signup`, { email, password })
         .then(response => {
             dispatch({ type: AUTH_USER });
-            localStorage.setItem('token', response.data.token);
-            browserHistory.push('/feature');
+            sessionStorage.setItem('token', response.data.token);
             console.log("token set");
+            browserHistory.push('/feature');
         })
         // .catch(({ response }) => console.log(response));
         .catch(({ response }) => dispatch(authError(response.data.error)));
