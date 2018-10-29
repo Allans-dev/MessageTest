@@ -25,13 +25,14 @@ export function signinUser({ email, password }) {
                 //  - update state to indicate user is auth'ed
                 dispatch({ type: AUTH_USER });
                 //  - save the JWT token
-                sessionStorage.setItem('token', response.data.token);
+                sessionStorage.setItem('token', response.token);
                 //  - redirect to the route '/feature'
                 browserHistory.push('/feature');
             })
-            .catch(()=>{
+            .catch((error)=>{
                 // If the request is bad...
                 //  - show an error to the user
+                console.log(error);
                 dispatch(authError('Bad Sign in Info'));
             });
 
@@ -43,12 +44,12 @@ export function signupUser({ email, password }) {
         postData(`${ROOT_URL}/signup`, { email, password })
         .then(response => {
             dispatch({ type: AUTH_USER });
-            sessionStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('token', response.token);
             console.log("token set");
             browserHistory.push('/feature');
         })
         // .catch(({ response }) => console.log(response));
-        .catch(({ response }) => dispatch(authError(response.data.error)));
+        .catch(({ response }) => dispatch(authError(response.error)));
         console.log("signup user action called");
     };
 }
@@ -64,8 +65,6 @@ function postData(url = ``, data = {}) {
             "Access-Control-Allow-Origin": "*"
             // "Content-Type": "application/x-www-form-urlencoded",
         },
-        redirect: "follow", // manual, *follow, error
-        referrer: "no-referrer", // no-referrer, *client
         body: JSON.stringify(data), // body data type must match "Content-Type" header
     })
     .then(response => response.json()); // parses response to JSON
@@ -80,14 +79,14 @@ export function authError(error) {
 }
 
 export function signoutUser() {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     return { type: UNAUTH_USER }
 }
 
 export function fetchMessage() {
     return function(dispatch) {
-        axios.get(ROOT_URL, {
-            headers: { authorization: localStorage.getItem('token')}
+        fetch(ROOT_URL, {
+            headers: { authorization: sessionStorage.getItem('token')}
         })
             .then(response => {
                 dispatch({
