@@ -1,7 +1,7 @@
 {
-  "name": "redux-simple-starter",
+  "name": "message-test",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "Combining message service using socket.io with react and node passport auth",
   "main": "index.js",
   "repository": "git@github.com:Allans-dev/MessageTest.git",
   "scripts": {
