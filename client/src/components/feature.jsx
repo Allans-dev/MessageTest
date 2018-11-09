@@ -55,9 +55,9 @@ class Feature extends Component {
     componentWillMount() {
         messageDisplay(this.state.message);
 
-        // subscribeToTimer((err, timestamp) => this.setState({ 
-        //     timestamp 
-        //   }));
+        subscribeToTimer((err, timestamp) => this.setState({ 
+            timestamp 
+          }));
     }
 
     handleChange(event) {
@@ -95,9 +95,9 @@ class Feature extends Component {
     render() {
         return (
             <div>
-                {/* <div>
+                <div>
                     {this.state.timestamp}
-                </div> */}
+                </div>
                 <ul id="messages" style={messagesStyle}></ul>
                 <form onSubmit={this.handleSubmit} style={formStyle}>
                     <input 
