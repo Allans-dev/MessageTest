@@ -5,7 +5,7 @@ import * as actions from '../actions';
 import { subscribeToTimer } from '../api';
 import { messageRelay } from '../api';
 import { messageDisplay } from '../api';
-import { closeSocket } from '../api';
+import { toggleSocket } from '../api';
 
 // Styling
 
@@ -53,6 +53,7 @@ class Feature extends Component {
         };
     }
     componentWillMount() {
+        toggleSocket('connect');
         messageDisplay(this.state.message);
 
         subscribeToTimer((err, timestamp) => this.setState({ 
@@ -89,7 +90,7 @@ class Feature extends Component {
     }
 
     componentWillUnmount() {
-        closeSocket();
+        toggleSocket('end');
     }
 
     render() {

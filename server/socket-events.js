@@ -21,6 +21,10 @@ module.exports = (io) => {
           console.log('message: ' + msg);
       });
 
+      socket.on('start', function(){
+        io();
+      })
+
       socket.on('end', function (){
         socket.disconnect(0);
        });

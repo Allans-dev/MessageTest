@@ -3,7 +3,9 @@ import {
     AUTH_USER,
     UNAUTH_USER, 
     AUTH_ERROR,
-    FETCH_MESSAGE 
+    FETCH_MESSAGE,
+    OPEN_SOCKET,
+    CLOSE_SOCKET 
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
@@ -70,7 +72,6 @@ function postData(url = ``, data = {}) {
     .then(response => response.json()); // parses response to JSON
 }
 
-
 export function authError(error) {
     return {
         type: AUTH_ERROR,
@@ -95,4 +96,12 @@ export function fetchMessage() {
                 });
             });
     };
+}
+
+export function openSocketInstance() {
+    return { type: OPEN_SOCKET };
+}
+
+export function closeSocketInstance() {
+    return { type: CLOSE_SOCKET };
 }

@@ -18,6 +18,7 @@ function messageRelay(msg) {
 export { messageRelay };
 
 function messageDisplay(msg) {
+    // socket.on('connection', console.log('client socket ready'));
     socket.on('chat message', function(msg){
 
         console.log('receiving emmitted event from server');
@@ -32,8 +33,8 @@ function messageDisplay(msg) {
 
 export { messageDisplay };
 
-function closeSocket() {
-    socket.emit('end');
+function toggleSocket(toggle) {
+    toggle == 'connect' ? socket.emit('start') : socket.emit('end');
 }
 
-export { closeSocket };
+export { toggleSocket };
