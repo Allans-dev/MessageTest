@@ -12,11 +12,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const router = require('./router');
-// const configdb = require('./config');
 
 // DB setup
-const dbUrl = configdb.database;
-mongoose.connect(process.env.MONGODB_URI || dbUrl);
+const dbUrl = 'mongodb://localhost:27017/messageTest'
+mongoose.connect(process.env.database || dbUrl);
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
 //Get the default connection
