@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
   },
-  "author": "Allan Cheung",
+  "proxy": "http://localhost:5000",
   "license": "ISC",
   "devDependencies": {
     "@types/react-router": "^4.0.32",
