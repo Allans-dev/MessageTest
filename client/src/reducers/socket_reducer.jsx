@@ -1,6 +1,6 @@
 import { OPEN_SOCKET, CLOSE_SOCKET } from '../actions/types';
 
-export default function(state={}, action) {
+export default function(state=true, action) {
     switch(action.type) {
         case OPEN_SOCKET:
             return { ...state, socket: true };

@@ -6,7 +6,7 @@ class Header extends Component {
 
     renderLinks() {
         console.log(this.props.authenticated);
-        
+        console.log(this.props.socket);
         if (this.props.authenticated) {
             // shows link to sign out
             return <li className="nav-item">
@@ -39,7 +39,8 @@ class Header extends Component {
 
 function mapStateToProps(state) {
     return {
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        socket: state.socket
     };
 }
 

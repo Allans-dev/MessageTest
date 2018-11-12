@@ -21,15 +21,17 @@ module.exports = (io) => {
           console.log('message: ' + msg);
       });
 
-      socket.on('start', function(){
-        io();
-      })
-
       socket.on('end', function (){
+        console.log('server receives request to end');
         socket.disconnect(0);
        });
 
     });
+
+    io.on('start', function(){
+      console.log('server receives request to start'); 
+      io();
+    })
 
 }
 

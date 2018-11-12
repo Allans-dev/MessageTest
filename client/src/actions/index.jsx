@@ -8,6 +8,8 @@ import {
     CLOSE_SOCKET 
 } from './types';
 
+import { toggleSocket } from '../api';
+
 const ROOT_URL = 'http://localhost:3090';
 
 export function signinUser({ email, password }) {
@@ -99,9 +101,11 @@ export function fetchMessage() {
 }
 
 export function openSocketInstance() {
+    toggleSocket('connect');
     return { type: OPEN_SOCKET };
 }
 
 export function closeSocketInstance() {
+    toggleSocket('end');
     return { type: CLOSE_SOCKET };
 }

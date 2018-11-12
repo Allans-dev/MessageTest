@@ -5,7 +5,7 @@ import * as actions from '../actions';
 import { subscribeToTimer } from '../api';
 import { messageRelay } from '../api';
 import { messageDisplay } from '../api';
-import { toggleSocket } from '../api';
+// import { toggleSocket } from '../api';
 
 // Styling
 
@@ -42,7 +42,6 @@ const messagesStyle = {
 class Feature extends Component {
     constructor(props){
         super(props);
-        // this.state = { message: '' }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,7 +52,10 @@ class Feature extends Component {
         };
     }
     componentWillMount() {
-        toggleSocket('connect');
+        if (!this.props.socket){
+            actions.openSocketInstance();
+        }
+        
         messageDisplay(this.state.message);
 
         subscribeToTimer((err, timestamp) => this.setState({ 
@@ -71,26 +73,11 @@ class Feature extends Component {
         this.setState({ message: '' });
 
         event.preventDefault();
-
-        // convert jquery to react ?not necessary?
-        // onSubmit use socket.io to pop to another area of the page on all users
-        
-        // $(function () {
-        //     const socket = io();
-        //      $('form').submit(function(){
-        //          socket.emit('chat message', $('#m').val());
-        //          $('#m').val('');
-        //          return false;
-        //      });
-        //      socket.on('chat message', function(msg){
-        //          $('#messages').append($('<li>').text(msg));
-        //      });
-        //  });
-        
     }
 
     componentWillUnmount() {
-        toggleSocket('end');
+        console.log('unmount called');
+        actions.closeSocketInstance();
     }
 
     render() {
@@ -118,7 +105,10 @@ class Feature extends Component {
 }
 
 function mapStateToProps(state) {
-    return { message: state.auth.message };
+    return { 
+        message: state.auth.message,
+        socket: state.socket
+     };
 }
 
 export default connect(mapStateToProps, actions)(Feature);
