@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const router = require('./router');
-const configdb = require('./config');
+// const configdb = require('./config');
 
 // DB setup
 const dbUrl = configdb.database;
