@@ -41,5 +41,5 @@ http.listen(port, "127.0.0.1"); // port then ip addresss
 
 socketEvents(io);
 
-console.log(`listening on: ${port}`);
+// console.log(`listening on: ${port}`);
 
