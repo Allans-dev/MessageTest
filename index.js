@@ -15,7 +15,7 @@ const router = require('./router');
 
 // DB setup
 const dbUrl = 'mongodb://localhost:27017/messageTest'
-mongoose.connect(process.env.database || dbUrl);
+mongoose.connect(process.env.MONGODB_URI || dbUrl);
 // Get Mongoose to use the global promise library
 // mongoose.Promise = global.Promise;
 // //Get the default connection
