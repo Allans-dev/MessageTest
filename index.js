@@ -30,11 +30,6 @@ app.use(cors()); // allows all client browsers to ajax server
 app.use(bodyParser.json({ type: '*/*' })); // all requests converted to json for server
 router(app);
 
-// Socket io hello world message code
-// app.get('/', function(req, res){
-//   // res.sendFile(__dirname + '/../client/src/components/messageDisplay.js');
-//   res.sendFile(__dirname + '/../client/index.html');
-// });
 const port = process.env.PORT || 3090;
 
 http.listen(port, "127.0.0.1"); // port then ip addresss
