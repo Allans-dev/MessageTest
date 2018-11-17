@@ -30,12 +30,12 @@ app.use(cors()); // allows all client browsers to ajax server
 app.use(bodyParser.json({ type: '*/*' })); // all requests converted to json for server
 router(app);
 
-// const port = process.env.PORT || 3090;
-const port = process.env.PORT;
+const port = process.env.PORT || 3090;
+// const port = process.env.PORT;
 
 http.listen(port, "127.0.0.1"); // port then ip addresss
 
 socketEvents(io);
 
-// console.log(`listening on: ${port}`);
+console.log(`listening on: ${port}`);
 
