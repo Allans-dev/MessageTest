@@ -52,6 +52,9 @@ class Feature extends Component {
   }
 
   componentWillMount() {
+    // fetch('http://localhost:3090', {
+    //   headers: { authorization: sessionStorage.getItem('token') },
+    // });
     const { socket } = this.state;
     const { message } = this.state;
     if (!{ socket }) {

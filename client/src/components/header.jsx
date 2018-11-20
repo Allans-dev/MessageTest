@@ -5,8 +5,8 @@ import { Link } from 'react-router';
 class Header extends Component {
 
   renderLinks() {
-    const { authenticated } = this.state;
-    const { socket } = this.state;
+    const { authenticated } = this.props;
+    const { socket } = this.props;
     console.log(authenticated);
     console.log(socket);
     if (authenticated) {
