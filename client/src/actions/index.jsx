@@ -21,19 +21,17 @@ export function signinUser({ email, password }) {
     console.log('signinUser action called');
     // submit email/password to server
 
-    const postData = (url = '', data = {}) => {
-      return fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, cors, *same-origin
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'Access-Control-Allow-Origin': '*',
-          // "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
-      })
-        .then(response => response.json()); // parses response to JSON
-    };
+    const postData = (url = '', data = {}) => fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, cors, *same-origin
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    })
+      .then(response => response.json()); // parses response to JSON
 
     postData(`${ROOT_URL}/signin`,{ email, password })
       .then((response) => {
